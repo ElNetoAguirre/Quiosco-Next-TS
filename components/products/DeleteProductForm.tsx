@@ -1,0 +1,56 @@
+"use client"
+import { deleteProduct } from "@/actions/delete-product-action"
+import { ProductSchema } from "@/src/schema"
+import { useParams, useRouter } from "next/navigation"
+import { toast } from "react-toastify"
+
+export default function DeleteProductForm({children}: {children : React.ReactNode}) {
+  const router = useRouter()
+  const params = useParams()
+  const id = +params.id!
+
+  const handleSubmit = async (formData: FormData) => {
+    const data = {
+      name: formData.get("name"),
+      price: formData.get("price"),
+      categoryId: formData.get("categoryId"),
+      image: formData.get("image"),
+    }
+
+    const result = ProductSchema.safeParse(data)
+    if(!result.success) {
+      result.error.issues.forEach(issues => {
+        toast.error(issues.message)
+      })
+      return
+    }
+
+    const response = await deleteProduct(result.data, id)
+    if(response?.errors) {
+      response.errors.forEach(issue => {
+        toast.error(issue.message)
+      })
+      return
+    }
+
+    toast.success("Producto Eliminado Correctamente")
+    router.push("/admin/products")
+  }
+
+  return (
+    <div className="bg-white mt-10 px-5 py-10 rounded-lg shadow-md max-w-3xl mx-auto">
+      <form
+        className="space-y-5"
+        action={handleSubmit}
+      >
+        {children}
+        
+        <input
+          type="submit"
+          className="bg-red-600 hover:bg-red-800 transition-colors text-white w-full mt-5 p-3 uppercase font-bold cursor-pointer rounded-lg"
+          value="Eliminar Producto"
+        />
+      </form>
+    </div>
+  )
+}
