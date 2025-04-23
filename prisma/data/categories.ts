@@ -4,19 +4,19 @@ export const categories = [
     name: "Café"
   },
   {
-    slug: "hamburguesa",
+    slug: "hamburguesas",
     name: "Hamburguesas"
   },
   {
-    slug: "pizza",
+    slug: "pizzas",
     name: "Pizzas"
   },
   {
-    slug: "dona",
+    slug: "donas",
     name: "Donas"
   },
   {
-    slug: "pastel",
+    slug: "pasteles",
     name: "Pasteles"
   },
   {
