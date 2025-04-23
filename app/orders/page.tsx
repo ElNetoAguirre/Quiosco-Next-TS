@@ -3,8 +3,6 @@ import Logo from "@/components/ui/Logo"
 import { prisma } from "@/src/lib/prisma"
 import { revalidatePath } from "next/cache"
 
-export const dynamic = "force-dynamic"
-
 async function getReadyOrders() {
   const orders = await prisma.order.findMany({
     take: 6,
