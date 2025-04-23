@@ -15,7 +15,7 @@ export default function ProductCard({product} : ProductCardProps) {
       <Image
         width={400}
         height={500}
-        className="rounded-t-lg"
+        className="rounded-t-lg [product-image]"
         src={imagePath}
         alt={`Imagen platillo ${product.name}`}
       />
